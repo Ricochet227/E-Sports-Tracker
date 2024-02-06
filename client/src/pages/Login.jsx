@@ -12,7 +12,7 @@ class login extends React.Component{
     }
 
     handlSubmit = (e) =>{
-
+        e.preventDefault()
     }
     render(){
         return(
