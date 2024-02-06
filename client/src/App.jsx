@@ -5,13 +5,13 @@ import Header from "./components/header/index";
 import Footer from "./components/footer/index";
 
 function App() {
-  return(
+  return (
     <div>
       <Switch>
-        <Route exact path='/' component={login}/>
+        <Route exact path="/" component={login} />
       </Switch>
     </div>
-  )
+  );
 }
 
 export default App;
