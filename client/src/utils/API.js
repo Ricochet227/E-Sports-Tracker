@@ -1,85 +1,36 @@
 import axios from "axios";
-const API = import.meta.env.VITE_API_KEY;
-const upcomingOptions = {
-  method: "GET",
-  url: "https://api.pandascore.co/lol/matches/upcoming",
-  headers: {
-    accept: "application/json",
-    authorization: `Bearer ${API}`,
-  },
+
+const getGames = async () => {
+  try {
+    const response = await axios.get(
+      "https://api.opendota.com/api/leagues/15899/matches"
+    );
+    return response.data;
+  } catch (err) {
+    console.error(err);
+  }
 };
 
-const AllMatchesOptions = {
-  method: "GET",
-  url: "https://api.pandascore.co/lol/matches",
-  headers: {
-    accept: "application/json",
-    authorization: `Bearer ${API}`,
-  },
+const getTeams = async () => {
+  try {
+    const response = await axios.get(
+      "https://api.opendota.com/api/leagues/15899/teams"
+    );
+    return response.data;
+  } catch (err) {
+    console.error(err);
+  }
 };
 
-const currentMatchesOptions = {
-  method: "GET",
-  url: "https://api.pandascore.co/lol/matches/running",
-  headers: {
-    accept: "application/json",
-    authorization: `Bearer ${API}`,
-  },
+const getSingleGame = async (matchid) => {
+  try {
+    const response = await axios.get(
+      `https://api.opendota.com/api/matches/${matchid}`
+    );
+    return response.data;
+  } catch (err) {
+    console.error(err);
+  }
 };
 
-const upcoming = async () => {
-  const data = await axios
-    .request(upcomingOptions)
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
-  return data;
-};
-
-const singleMatch = async (id) => {
-  const singleMatchOptions = {
-    method: "GET",
-    url: `https://api.pandascore.co/lol/matches/${id}`,
-    headers: {
-      accept: "application/json",
-      authorization: `Bearer ${API}`,
-    },
-  };
-  const data = await axios
-    .request(singleMatchOptions)
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
-  return data;
-};
-
-const allMatches = async () => {
-  const data = await axios
-    .request(AllMatchesOptions)
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
-  return data;
-};
-
-const currentMatches = () => {
-  axios
-    .request(currentMatchesOptions)
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
-};
-
-export { upcoming, singleMatch, allMatches, currentMatches };
+export { getGames, getTeams, getSingleGame };

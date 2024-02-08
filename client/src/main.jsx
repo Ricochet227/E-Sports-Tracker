@@ -6,9 +6,9 @@ import "./index.css";
 
 import Home from "./pages/Home";
 // import Error from "./pages/Error";
-// import Login from "./pages/Login";
+import Login from "./pages/Login";
 // import Signup from "./pages/Signup";
-// import Match from "./pages/Match";
+import Match from "./pages/Match";
 
 const router = createBrowserRouter([
   {
@@ -20,18 +20,18 @@ const router = createBrowserRouter([
         index: true,
         element: <Home />,
       },
-      // {
-      //   path: "/login",
-      //   element: <Login />,
-      // },
+      {
+        path: "/login",
+        element: <Login />,
+      },
       // {
       //   path: "/signup",
       //   element: <Signup />,
       // },
-      // {
-      //   path: "/match/:id",
-      //   element: <Match />,
-      // },
+      {
+        path: "/match/:matchid",
+        element: <Match />,
+      },
     ],
   },
 ]);
