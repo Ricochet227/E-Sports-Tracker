@@ -16,7 +16,7 @@ export default function Foot() {
         document.documentElement.scrollHeight - footer.offsetHeight;
 
       setIsSticky(
-        isDocumentHeightLessThanOrEqualToWindow && isScrolledToBottom
+        isDocumentHeightLessThanOrEqualToWindow && !isScrolledToBottom
       );
     }
 

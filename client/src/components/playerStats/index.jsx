@@ -1,66 +1,100 @@
-// PlayerStats.jsx
-
-import React from "react";
 import "./PlayerStats.css";
+import { getAllHeroes, getAllItems } from "../../utils/API";
+import React, { useEffect, useState } from "react";
 
 export default function PlayerStats({ player }) {
-  return (
-    <div className="player-stats-container">
-      <h3>{player.name}</h3>
-      <table className="stats-table">
-        <thead>
-          <tr>
-            <th>Stat</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Hero</td>
-            <td>{player.hero_id}</td>
-          </tr>
-          <tr>
-            <td>Level</td>
-            <td>{player.level}</td>
-          </tr>
-          <tr>
-            <td>K/D/A</td>
-            <td>
-              {player.kills}/{player.deaths}/{player.assists}
-            </td>
-          </tr>
-          <tr>
-            <td>Total Gold</td>
-            <td>{player.total_gold}</td>
-          </tr>
-          <tr>
-            <td>Gold Per Minute</td>
-            <td>{player.gold_per_min}</td>
-          </tr>
-          <tr>
-            <td>Player Damage</td>
-            <td>{player.hero_damage}</td>
-          </tr>
-        </tbody>
-      </table>
+  const [heroes, setHeroes] = useState([]);
+  const [items, setItems] = useState([]);
 
-      {/* Displaying item photos */}
-      <div className="item-photos">
-        {Array.from({ length: 6 }, (_, index) => (
-          <img
-            key={`${player.personaname}_item_${index}`}
-            src={`https://example.com/items/${player[`item_${index}`]}`}
-            alt={`Item ${index + 1}`}
-            className="item-photo"
-          />
-        ))}
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getAllHeroes();
+        setHeroes(data);
+      } catch (error) {
+        console.error("Error fetching Matches API:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getAllItems();
+        setItems(data);
+      } catch (error) {
+        console.error("Error fetching Matches API:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const foundHero = heroes.find((hero) => hero.id === player.hero_id);
+  const itemSlots = [
+    "item_0",
+    "item_1",
+    "item_2",
+    "item_3",
+    "item_4",
+    "item_5",
+    "item_neutral",
+  ];
+
+  let foundItems = {};
+
+  if (typeof items === "object" && Object.keys(items).length > 0) {
+    itemSlots.forEach((slot) => {
+      const itemId = player[slot];
+
+      const foundItem = Object.values(items).find((item) => item.id === itemId);
+
+      if (foundItem) {
+        foundItems[slot] = foundItem;
+      }
+    });
+  }
+
+  if (
+    !foundHero ||
+    !foundItems ||
+    Object.values(foundItems).some((item) => !item)
+  ) {
+    return (
+      <tr>
+        <td>"Loading..."</td>
+      </tr>
+    );
+  }
+  const heroName = foundHero.name.split("npc_dota_hero_").pop();
+  return (
+    <tr key={player.account_id}>
+      <td>
         <img
-          key={`${player.personaname}_item_neutral`}
-          src={`https://example.com/items/${player.item_neutral}`}
-          alt="Neutral Item"
-          className="item-photo"
+          src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${heroName}.png`}
+          alt={heroName}
         />
-      </div>
-    </div>
+      </td>
+      <td>{player.name ? player.name : player.personaname}</td>
+      <td>{player.level}</td>
+      <td>
+        <div className="item-photos">
+          {itemSlots.map((slot) => (
+            <img
+              key={`${player.personaname}_${slot}`}
+              src={`https://cdn.cloudflare.steamstatic.com/${foundItems[slot]?.img}`}
+              alt=""
+              className="item-photo"
+            />
+          ))}
+        </div>
+      </td>
+      <td>{`${player.kills}/${player.deaths}/${player.assists}`}</td>
+      <td>{player.total_gold}</td>
+      <td>{player.gold_per_min}</td>
+      <td>{player.hero_damage}</td>
+    </tr>
   );
 }
