@@ -1,82 +1,64 @@
+// PlayerStats.jsx
+
 import React from "react";
+import "./PlayerStats.css";
 
 export default function PlayerStats({ player }) {
   return (
-    <div
-      style={{
-        border: "1px solid #ccc",
-        padding: "10px",
-        margin: "10px",
-        width: "300px",
-      }}
-    >
+    <div className="player-stats-container">
       <h3>{player.name}</h3>
-      <p>Hero: {player.hero_id}</p>
-      <p>Level: {player.level}</p>
-      <p>
-        K/D/A: {player.kills}/{player.deaths}/{player.assists}
-      </p>
-      <p>Total Gold: {player.total_gold}</p>
-      <p>Gold Per Minute: {player.gold_per_min}</p>
-      <p>Player Damage: {player.hero_damage}</p>
+      <table className="stats-table">
+        <thead>
+          <tr>
+            <th>Stat</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Hero</td>
+            <td>{player.hero_id}</td>
+          </tr>
+          <tr>
+            <td>Level</td>
+            <td>{player.level}</td>
+          </tr>
+          <tr>
+            <td>K/D/A</td>
+            <td>
+              {player.kills}/{player.deaths}/{player.assists}
+            </td>
+          </tr>
+          <tr>
+            <td>Total Gold</td>
+            <td>{player.total_gold}</td>
+          </tr>
+          <tr>
+            <td>Gold Per Minute</td>
+            <td>{player.gold_per_min}</td>
+          </tr>
+          <tr>
+            <td>Player Damage</td>
+            <td>{player.hero_damage}</td>
+          </tr>
+        </tbody>
+      </table>
 
       {/* Displaying item photos */}
-      <div style={{ display: "flex" }}>
-        <img
-          key={`${player.personaname}_item_0`}
-          src={
-            `https://example.com/items/${player.item_0}` /* Replace with actual item URL */
-          }
-          alt={`Item`}
-          style={{ marginRight: "5px", width: "30px", height: "30px" }}
-        />
-        <img
-          key={`${player.personaname}_item_1`}
-          src={
-            `https://example.com/items/${player.item_0}` /* Replace with actual item URL */
-          }
-          alt={`Item`}
-          style={{ marginRight: "5px", width: "30px", height: "30px" }}
-        />
-        <img
-          key={`${player.personaname}item_2`}
-          src={
-            `https://example.com/items/${player.item_0}` /* Replace with actual item URL */
-          }
-          alt={`Item`}
-          style={{ marginRight: "5px", width: "30px", height: "30px" }}
-        />
-        <img
-          key={`${player.personaname}_item_3`}
-          src={
-            `https://example.com/items/${player.item_0}` /* Replace with actual item URL */
-          }
-          alt={`Item`}
-          style={{ marginRight: "5px", width: "30px", height: "30px" }}
-        />
-        <img
-          key={`${player.personaname}_item_4`}
-          src={
-            `https://example.com/items/${player.item_0}` /* Replace with actual item URL */
-          }
-          alt={`Item`}
-          style={{ marginRight: "5px", width: "30px", height: "30px" }}
-        />
-        <img
-          key={`${player.personaname}_item_5`}
-          src={
-            `https://example.com/items/${player.item_0}` /* Replace with actual item URL */
-          }
-          alt={`Item`}
-          style={{ marginRight: "5px", width: "30px", height: "30px" }}
-        />
+      <div className="item-photos">
+        {Array.from({ length: 6 }, (_, index) => (
+          <img
+            key={`${player.personaname}_item_${index}`}
+            src={`https://example.com/items/${player[`item_${index}`]}`}
+            alt={`Item ${index + 1}`}
+            className="item-photo"
+          />
+        ))}
         <img
           key={`${player.personaname}_item_neutral`}
-          src={
-            `https://example.com/items/${player.item_0}` /* Replace with actual item URL */
-          }
-          alt={`Item`}
-          style={{ marginRight: "5px", width: "30px", height: "30px" }}
+          src={`https://example.com/items/${player.item_neutral}`}
+          alt="Neutral Item"
+          className="item-photo"
         />
       </div>
     </div>
