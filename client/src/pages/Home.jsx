@@ -1,51 +1,41 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { getGames, getTeams } from "../utils/API";
+import { useNavigate } from "react-router-dom";
+import dotaImg from "../assets/images/dota2logo.jpeg";
 
 const HomePage = () => {
-  const [upcomingMatches, setUpcomingMatches] = useState([]);
-  const [pastMatches, setPastMatches] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [matches, setMatches] = useState([]);
+  const [teams, setTeams] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const apiKey = process.env.REACT_APP_PANDASCORE_API_KEY; // Storing API key in environment variable
-    const leagueId = 'LOL_LEAGUE_ID'; // Might need to redo this function many times to show lck, lpl, lec and lcs
-    const upcomingEndpoint = `https://api.pandascore.co/leagues/${leagueId}/matches/upcoming?token=${apiKey}`;
-    const pastEndpoint = `https://api.pandascore.co/leagues/${leagueId}/matches/past?token=${apiKey}`;
-
-    const fetchMatches = async () => {
-      try {
-        const [upcomingResponse, pastResponse] = await Promise.all([
-          axios.get(upcomingEndpoint),
-          axios.get(pastEndpoint),
-        ]);
-        setUpcomingMatches(upcomingResponse.data);
-        const pastMatchesWithWinners = pastResponse.data.map(match => {
-            const winner = match.winner || match.teams.find(team => team.id === match.winner_id);
-            return{
-                ...match, 
-                winner: winner ? winner.name : 'TBD' //Will need to replace name with what the api gives back somehow
-            }
-        })
-        setPastMatches(pastMatchesWithWinners);
-      } catch (error) {
-        setError('Failed to load matches');
-        console.error('Error fetching matches:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchMatches();
+    getGames()
+      .then((data) => setMatches(data))
+      .catch((error) => console.error("Error fetching Matches API:", error));
   }, []);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  useEffect(() => {
+    getTeams()
+      .then((data) => setTeams(data))
+      .catch((error) => console.error("Error fetching Teams API:", error));
+  }, []);
+  if (matches) {
+    console.log(matches, teams);
+  }
 
-  // Function to handle match card click, this will need to be updated based on where the stream URL is in the response or at all
-  const handleMatchClick = (streamUrl) => {
-    window.open(streamUrl, '_blank');
+  const teamLogoMap = teams.reduce((map, team) => {
+    map[team.team_id] = team.logo_url;
+    return map;
+  }, {});
+
+  const handleMatchClick = (match) => {
+    // You can navigate to the next page or perform other actions here
+    navigate(`/match/${match.match_id}`);
   };
+
+  //   if (isLoading) return <div>Loading...</div>;
+  //   if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="matches-page">
@@ -55,15 +45,25 @@ const HomePage = () => {
       </div>
       <div className="past-matches-container">
         <h2>Past Matches</h2>
-        {
-  pastMatches.map((match) => (
-    <div key={match.id} className="match-card">
-      <h3>{match.name}</h3>
-      <p>{match.teams.map(team => team.name).join(' vs ')}</p>
-      <p>Winner: {match.winner}</p> {/* Display the winner here */}
-    </div>
-  ))
-}
+        {matches.map((match) => (
+          <div
+            key={match.match_id}
+            className="match-card"
+            onClick={() => handleMatchClick(match)}
+          >
+            <h3></h3>
+            <img
+              src={teamLogoMap[match.radiant_team_id] || dotaImg}
+              alt={`Radiant Team Logo for Match ${match.match_id}`}
+            />
+            <img
+              src={teamLogoMap[match.dire_team_id] || dotaImg}
+              alt={`Dire Team Logo for Match ${match.match_id}`}
+            />
+            {/* <p>{match.teams.map(team => team.name).join(' vs ')}</p>
+      <p>Winner: {match.winner}</p> Display the winner here */}
+          </div>
+        ))}
       </div>
     </div>
   );

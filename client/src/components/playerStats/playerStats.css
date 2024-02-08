@@ -1,0 +1,33 @@
+.player-stats-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  width: 300px;
+}
+
+.player-stats-container h3 {
+  margin-bottom: 10px;
+}
+
+.stats-table {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.stats-table th,
+.stats-table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.item-photos {
+  display: flex;
+  margin-top: 10px;
+}
+
+.item-photo {
+  margin-right: 5px;
+  width: 30px;
+  height: 30px;
+}
