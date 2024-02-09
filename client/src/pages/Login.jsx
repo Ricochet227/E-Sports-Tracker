@@ -1,5 +1,5 @@
 import React from "react";
-// import {Reactcomponent as logo} from '../../assests/react.svg'
+// import {Reactcomponent as logo} from '../../assets/react.svg'
 class login extends React.Component {
   state = {
     email: "",
