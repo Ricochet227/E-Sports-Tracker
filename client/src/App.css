@@ -33,8 +33,8 @@
 }
 
 .match-card img {
-  width: 80px; /* Adjust based on our needs */
-  height: 80px; /* Adjust based on our needs */
+  width: 80px;
+  height: 80px;
   object-fit: cover;
 }
 
