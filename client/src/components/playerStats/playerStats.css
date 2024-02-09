@@ -1,33 +1,93 @@
-/* PlayerStats.css */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-.player-stats-container {
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin: 10px;
-  width: 600px; /* Adjust the width as needed */
-  border-style: none;
+main {
+  width: 100%; /* Ensure the main element takes up the full width */
+}
+
+.winner {
+  color: green;
+  text-align: center;
+}
+
+.loss {
+  color: red;
+}
+
+.item-photos img {
+  max-width: 40px;
+  max-height: 36.359px;
+}
+
+.team-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.team-container img {
+  flex-shrink: 1;
+  max-width: 80%;
+  width: 400px;
+}
+
+.match-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap; /* Allow flex items to wrap to the next line */
+  margin-bottom: 60px;
+  margin-top: 20px;
+  position: relative;
+  max-width: 100%;
 }
 
 .stats-table {
-  width: 100%;
-  margin-top: 10px;
-  border-collapse: collapse;
+  overflow-x: auto;
+  white-space: nowrap;
+  display: block; /* Ensure the table is treated as a block element */
+  table-layout: fixed; /* Set table layout to fixed */
+  max-width: 100%;
+}
+
+.player-stats-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 48%;
+  box-sizing: border-box;
+  align-items: center;
+  margin-left: 10px;
 }
 
 .stats-table th,
 .stats-table td {
   padding: 8px;
-  text-align: left;
-  border: 1px solid #ccc;
+  text-align: center;
+  color: white;
+  border: 1px solid #ddd;
+  overflow: hidden; /* Hide overflowing content */
+  text-overflow: ellipsis; /* Display an ellipsis (...) when content overflows */
 }
 
-.item-photos {
-  display: flex;
-  margin-top: 10px;
+.stats-table th {
+  background-color: #464545;
+  flex-wrap: nowrap;
 }
 
-.item-photo {
-  margin-right: 5px;
-  width: 30px;
-  height: 30px;
+.stats-table tbody tr:nth-child(even) {
+  background-color: #464545;
+}
+
+.stats-table tbody tr:nth-child(odd) {
+  background-color: #a7a3a3;
+}
+
+td img {
+  max-width: 50px;
+}
+
+tr {
+  flex-wrap: nowrap;
 }

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { getSingleGame, getTeams } from "../utils/API";
 import { useParams } from "react-router-dom";
 import PlayerStats from "../components/playerStats";
-import "../assets/css/match.css";
 import dotaImg from "../assets/images/dota2logo.jpeg";
+import "../components/playerStats/playerStats.css";
 
 const Match = () => {
   const [match, setMatches] = useState([]);
@@ -64,7 +64,11 @@ const Match = () => {
           />
           <h2>{match.radiant_name}</h2>
         </div>
-        <h2>Radiant Stats</h2>
+        {match.radiant_win ? (
+          <h2 className="winner">Radiant Victory</h2>
+        ) : (
+          <h2 className="loss">Radiant Loss</h2>
+        )}
         <table className="stats-table">
           <thead>
             <tr>
@@ -93,7 +97,11 @@ const Match = () => {
           />
           <h2>{match.dire_name}</h2>
         </div>
-        <h2>Dire Stats</h2>
+        {match.radiant_win ? (
+          <h2 className="loss">Dire Loss</h2>
+        ) : (
+          <h2 className="winner">Dire Vicory</h2>
+        )}
         <table className="stats-table">
           <thead>
             <tr>
