@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { getSingleGame } from "../utils/API";
-import { useNavigate } from "react-router-dom";
+import { getSingleGame, getTeams } from "../utils/API";
 import { useParams } from "react-router-dom";
 import PlayerStats from "../components/playerStats";
+import "../assets/css/match.css";
+import dotaImg from "../assets/images/dota2logo.jpeg";
 
 const Match = () => {
   const [match, setMatches] = useState([]);
+  const [teams, setTeams] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
   const { matchid } = useParams();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,9 +21,29 @@ const Match = () => {
         console.error("Error fetching Matches API:", error);
       }
     };
-
     fetchData();
   }, [matchid]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getTeams();
+        setTeams(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (!teams) {
+    return <div>Loading...</div>;
+  }
+
+  const teamLogoMap = teams.reduce((map, team) => {
+    map[team.team_id] = team.logo_url;
+    return map;
+  }, {});
 
   if (!dataLoaded) {
     return <div>Loading...</div>;
@@ -34,9 +55,15 @@ const Match = () => {
   const direPlayers = match.players.filter((player) => !player.isRadiant);
 
   return (
-    <div>
-      <div></div>
+    <div className="match-container">
       <div className="player-stats-container">
+        <div className="team-container">
+          <img
+            src={teamLogoMap[match.radiant_team_id] || dotaImg}
+            alt={`Radiant Team Logo for Match ${match.match_id}`}
+          />
+          <h2>{match.radiant_name}</h2>
+        </div>
         <h2>Radiant Stats</h2>
         <table className="stats-table">
           <thead>
@@ -59,6 +86,13 @@ const Match = () => {
         </table>
       </div>
       <div className="player-stats-container">
+        <div className="team-container">
+          <img
+            src={teamLogoMap[match.dire_team_id] || dotaImg}
+            alt={`Dire Team Logo for Match ${match.match_id}`}
+          />
+          <h2>{match.dire_name}</h2>
+        </div>
         <h2>Dire Stats</h2>
         <table className="stats-table">
           <thead>
