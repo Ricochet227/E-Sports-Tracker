@@ -1,17 +1,12 @@
 import React from 'react';
+import "./header.css"
 
 // Functional component
 const Header = () => {
   return (
-    <header>
-      <h1>Welcome to My Website</h1>
-      <nav>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact</a></li>
-        </ul>
-      </nav>
+    <header className="header">
+      <img src="./images/e-sports-tracker.jpeg" alt="Logo" />
+      <h1>e-sports tracker</h1>
     </header>
   );
 }
