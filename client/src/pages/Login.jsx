@@ -1,5 +1,6 @@
 import React from "react";
-// import {Reactcomponent as logo} from '../../assets/react.svg'
+  //import {Reactcomponent as logo} from '../../assets/react.svg'
+  import './login.css'
 class login extends React.Component {
   state = {
     email: "",
@@ -15,8 +16,8 @@ class login extends React.Component {
   };
   render() {
     return (
-      <div>
-        <div>
+      <div className="div-login">
+        <div className="div-login-logo">
           <logo />
         </div>
         <div>
@@ -44,3 +45,4 @@ class login extends React.Component {
 }
 
 export default login;
+

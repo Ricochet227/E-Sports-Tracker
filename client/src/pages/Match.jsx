@@ -4,21 +4,28 @@ import { useParams } from "react-router-dom";
 import PlayerStats from "../components/playerStats";
 import dotaImg from "../assets/images/dota2logo.jpeg";
 import "../components/playerStats/playerStats.css";
+import Error from "../pages/Error";
 
 const Match = () => {
   const [match, setMatches] = useState([]);
   const [teams, setTeams] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [error, setError] = useState(null);
   const { matchid } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getSingleGame(matchid);
-        setMatches(data);
-        setDataLoaded(true);
+        if (data) {
+          setMatches(data);
+          setDataLoaded(true);
+        } else {
+          throw new Error("No data returned");
+        }
       } catch (error) {
         console.error("Error fetching Matches API:", error);
+        setError(error.message);
       }
     };
     fetchData();

@@ -2,23 +2,31 @@ import React, { useState, useEffect } from "react";
 import { getGames, getTeams } from "../utils/API";
 import { useNavigate } from "react-router-dom";
 import dotaImg from "../assets/images/dota2logo.jpeg";
+import Error from "../pages/Error";
 import './../App.css';
 
 const HomePage = () => {
   const [matches, setMatches] = useState([]);
   const [teams, setTeams] = useState([]);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     getGames()
       .then((data) => setMatches(data))
-      .catch((error) => console.error("Error fetching Matches API:", error));
+      .catch((error) => {
+        console.error("Error fetching Matches API:", error);
+        setError("Failed to load upcoming matches.");
+      });
   }, []);
 
   useEffect(() => {
     getTeams()
       .then((data) => setTeams(data))
-      .catch((error) => console.error("Error fetching Teams API:", error));
+      .catch((error) => {
+        console.error("Error fetching Teams API:", error);
+        setError("Failed to load teams information.");
+      });
   }, []);
 
   const teamLogoMap = teams.reduce((map, team) => {
@@ -29,6 +37,10 @@ const HomePage = () => {
   const handleMatchClick = (match) => {
     navigate(`/match/${match.match_id}`);
   };
+
+  if (error) {
+    return <Error message={error} />;
+  }
 
   return (
     <div className="matches-page">
