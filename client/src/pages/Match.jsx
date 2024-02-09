@@ -35,6 +35,7 @@ const Match = () => {
 
   return (
     <div>
+      <div></div>
       <div className="player-stats-container">
         <h2>Radiant Stats</h2>
         <table className="stats-table">

@@ -1,6 +1,7 @@
 import "./PlayerStats.css";
 import { getAllHeroes, getAllItems } from "../../utils/API";
 import React, { useEffect, useState } from "react";
+import noItemImg from "../../assets/images/noItem.png";
 
 export default function PlayerStats({ player }) {
   const [heroes, setHeroes] = useState([]);
@@ -84,7 +85,11 @@ export default function PlayerStats({ player }) {
           {itemSlots.map((slot) => (
             <img
               key={`${player.personaname}_${slot}`}
-              src={`https://cdn.cloudflare.steamstatic.com/${foundItems[slot]?.img}`}
+              src={
+                foundItems[slot]
+                  ? `https://cdn.cloudflare.steamstatic.com/${foundItems[slot]?.img}`
+                  : noItemImg
+              }
               alt=""
               className="item-photo"
             />
