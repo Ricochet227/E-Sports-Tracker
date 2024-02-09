@@ -3,10 +3,12 @@ import { getSingleGame } from "../utils/API";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import PlayerStats from "../components/playerStats";
+import Error from "../pages/Error";
 
 const Match = () => {
   const [match, setMatches] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [error, setError] = useState(null);
   const { matchid } = useParams();
   const navigate = useNavigate();
 
@@ -14,19 +16,31 @@ const Match = () => {
     const fetchData = async () => {
       try {
         const data = await getSingleGame(matchid);
-        setMatches(data);
-        setDataLoaded(true);
+        if(data) {
+          setMatches(data);
+          setDataLoaded(true);
+        } else {
+          throw new Error("No data returned");
+        }
       } catch (error) {
         console.error("Error fetching Matches API:", error);
+        setError(error.message);
       }
     };
 
     fetchData();
   }, [matchid]);
 
+
+  if (error) {
+    return <Error message={Error} />;
+  } 
+
   if (!dataLoaded) {
     return <div>Loading...</div>;
   }
+
+  
 
   console.log(match);
 
