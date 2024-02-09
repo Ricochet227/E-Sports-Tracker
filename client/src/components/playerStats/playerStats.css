@@ -59,6 +59,7 @@ main {
   box-sizing: border-box;
   align-items: center;
   margin-left: 10px;
+  margin-bottom: 20px;
 }
 
 .stats-table th,
