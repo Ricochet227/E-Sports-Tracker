@@ -31,15 +31,55 @@ const Match = () => {
   console.log(match);
 
   const radiantPlayers = match.players.filter((player) => player.isRadiant);
+  const direPlayers = match.players.filter((player) => !player.isRadiant);
 
   return (
     <div>
-      <h2>Match Details</h2>
-
-      {/* Render stats for each player on the radiant team */}
-      {radiantPlayers.map((player) => (
-        <PlayerStats key={player.account_id} player={player} />
-      ))}
+      <div></div>
+      <div className="player-stats-container">
+        <h2>Radiant Stats</h2>
+        <table className="stats-table">
+          <thead>
+            <tr>
+              <th>Hero</th>
+              <th>Player</th>
+              <th>Level</th>
+              <th>Items</th>
+              <th>K/D/A</th>
+              <th>Gold</th>
+              <th>GPM</th>
+              <th>Player DMG</th>
+            </tr>
+          </thead>
+          <tbody>
+            {radiantPlayers.map((player) => (
+              <PlayerStats key={player.account_id} player={player} />
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="player-stats-container">
+        <h2>Dire Stats</h2>
+        <table className="stats-table">
+          <thead>
+            <tr>
+              <th>Hero</th>
+              <th>Player</th>
+              <th>Level</th>
+              <th>Items</th>
+              <th>K/D/A</th>
+              <th>Gold</th>
+              <th>GPM</th>
+              <th>Player DMG</th>
+            </tr>
+          </thead>
+          <tbody>
+            {direPlayers.map((player) => (
+              <PlayerStats key={player.account_id} player={player} />
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

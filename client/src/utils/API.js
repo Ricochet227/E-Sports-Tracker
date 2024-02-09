@@ -33,4 +33,24 @@ const getSingleGame = async (matchid) => {
   }
 };
 
-export { getGames, getTeams, getSingleGame };
+const getAllHeroes = async () => {
+  try {
+    const response = await axios.get("https://api.opendota.com/api/heroes");
+    return response.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const getAllItems = async () => {
+  try {
+    const response = await axios.get(
+      "https://api.opendota.com/api/constants/items"
+    );
+    return response.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export { getGames, getTeams, getSingleGame, getAllHeroes, getAllItems };
