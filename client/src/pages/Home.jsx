@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import dotaImg from "../assets/images/dota2logo.jpeg";
 import Error from "../pages/Error";
 import './../App.css';
+import CommentForm from '../components/comments/CommentForm';
+import CommentList from '../components/comments/CommentList';
 
 const HomePage = () => {
   const [matches, setMatches] = useState([]);
@@ -44,28 +46,30 @@ const HomePage = () => {
 
   return (
     <div className="matches-page">
+      {/* You may want to implement upcoming matches similarly */}
       <div className="upcoming-matches-container">
         <h2>Upcoming Matches</h2>
-        {/* Implement the actual rendering of upcoming matches here */}
       </div>
       <div className="past-matches-container">
         <h2>Past Matches</h2>
         {matches.map((match) => (
-          <div
-            key={match.match_id}
-            className="match-card"
-            onClick={() => handleMatchClick(match)}
-          >
-            <img
-              src={teamLogoMap[match.radiant_team_id] || dotaImg}
-              alt={`Radiant Team Logo for Match ${match.match_id}`}
-            />
-            <div className="vs">VS</div>
-            <img
-              src={teamLogoMap[match.dire_team_id] || dotaImg}
-              alt={`Dire Team Logo for Match ${match.match_id}`}
-            />
-            {/* Include additional match details as needed */}
+          <div key={match.match_id}>
+            <div
+              className="match-card"
+              onClick={() => handleMatchClick(match)}
+            >
+              <img
+                src={teamLogoMap[match.radiant_team_id] || dotaImg}
+                alt={`Radiant Team Logo for Match ${match.match_id}`}
+              />
+              <div className="vs">VS</div>
+              <img
+                src={teamLogoMap[match.dire_team_id] || dotaImg}
+                alt={`Dire Team Logo for Match ${match.match_id}`}
+              />
+            </div>
+            <CommentForm matchId={match.match_id} />
+            <CommentList matchId={match.match_id} />
           </div>
         ))}
       </div>
