@@ -2,13 +2,15 @@ const { User } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 
 const resolvers = {
-  user: async (parent, args, context) => {
-    if (context.user) {
-      const user = await User.findById(context.user._id);
-      return user;
-    }
+  Query: {
+    user: async (parent, args, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+        return user;
+      }
 
-    throw AuthenticationError;
+      throw AuthenticationError("User not authenticated");
+    },
   },
 
   Mutation: {

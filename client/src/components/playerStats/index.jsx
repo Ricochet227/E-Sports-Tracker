@@ -1,4 +1,4 @@
-import "./PlayerStats.css";
+// import "./PlayerStats.css";
 import { getAllHeroes, getAllItems } from "../../utils/API";
 import React, { useEffect, useState } from "react";
 import noItemImg from "../../assets/images/noItem.png";
