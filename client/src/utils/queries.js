@@ -14,7 +14,7 @@ export const QUERY_USER = gql`
 `;
 
 export const QUERY_MATCH_COMMENTS = gql`
-  query getComments($matchId: String!) {
+  query comments($matchId: String) {
     comments(matchId: $matchId) {
       _id
       text

@@ -11,7 +11,7 @@ type User {
     text: String
     author: String
     matchId: String!
-    createdAt: String!
+    createdAt: String
   }
 
   type Auth {
@@ -31,7 +31,7 @@ type User {
     addUser(username: String!, email: String!, password: String!): Auth
     updateUser(username: String, email: String, password: String): User
     login(email: String!, password: String!): Auth
-    addComment(text: String!, matchId: String!): Comment
+    addComment(text: String, matchId: String): Comment
   }
 `;
 module.exports = typeDefs;

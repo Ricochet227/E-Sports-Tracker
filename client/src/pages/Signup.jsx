@@ -4,14 +4,16 @@ import { ADD_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
 
 const Signup = () => {
+  //sets up the formData object
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+  //sets up the addUser mutation
   const [addUser, { error, data }] = useMutation(ADD_USER);
-
+  //for checking if the password match
   let notMatched;
 
   const handleChange = (e) => {
@@ -21,9 +23,9 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       if (formData.password === formData.confirmPassword) {
+        notMatched = false;
         const { data } = await addUser({
           variables: {
             username: formData.username,

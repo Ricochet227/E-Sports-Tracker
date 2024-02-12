@@ -37,7 +37,7 @@ main {
 .match-container {
   display: flex;
   justify-content: center;
-  flex-wrap: nowrap; /* Allow flex items to wrap to the next line */
+  flex-wrap: wrap; /* Allow flex items to wrap to the next line */
   margin-bottom: 60px;
   margin-top: 20px;
   position: relative;
@@ -91,4 +91,8 @@ td img {
 
 tr {
   flex-wrap: nowrap;
+}
+
+.match-comments-container {
+  text-align: center;
 }

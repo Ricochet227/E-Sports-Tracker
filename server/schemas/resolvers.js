@@ -20,7 +20,9 @@ const resolvers = {
 
     comments: async (parent, { matchId }) => {
       const params = matchId ? { matchId } : {};
-      return Comment.find(params).sort({ createdAt: -1 });
+      return Comment.find(params)
+        .sort({ createdAt: 1 })
+        .select("_id text author matchId createdAt");
     },
 
     comment: async (parent, { commentId }) => {
@@ -78,6 +80,7 @@ const resolvers = {
             runValidators: true,
           }
         );
+        return comment;
       }
       throw new AuthenticationError("You need to be logged in to comment");
     },

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-//import {Reactcomponent as logo} from '../../assets/react.svg'
 import { useMutation } from "@apollo/client";
 import "./login.css";
 import Auth from "../utils/auth";
@@ -7,7 +6,7 @@ import { LOGIN_USER } from "../utils/mutations";
 const Login = () => {
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error, data }] = useMutation(LOGIN_USER);
-
+  //on change updates formState
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormState({
@@ -30,6 +29,7 @@ const Login = () => {
       // Handle login error (show error message, etc.)
       console.error("Login failed:", error);
     }
+    //sets formState back to empty
     setFormState({
       email: "",
       password: "",
