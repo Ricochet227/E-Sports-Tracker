@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getSingleGame, getTeams } from "../utils/API";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
+import {
+  useQuery,
+  ApolloClient,
+  InMemoryCache,
+  createHttpLink,
+} from "@apollo/client";
 import PlayerStats from "../components/playerStats";
 import dotaImg from "../assets/images/dota2logo.jpeg";
 import "../components/playerStats/playerStats.css";
@@ -15,6 +20,7 @@ const Match = () => {
   const [teams, setTeams] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
   const { matchid } = useParams();
+
   //runs the query on the comments that match the param matchid. this brings in comments that only apply to this match
   const {
     loading,
@@ -23,6 +29,7 @@ const Match = () => {
   } = useQuery(QUERY_MATCH_COMMENTS, {
     variables: { matchId: matchid },
   });
+
   //fetches the game from the api using the matchid
   useEffect(() => {
     const fetchData = async () => {
@@ -62,23 +69,20 @@ const Match = () => {
     map[team.team_id] = team.logo_url;
     return map;
   }, {});
-
+  //waits to load in the match data to avoid errors
   if (!dataLoaded) {
     return <div>Loading...</div>;
   }
-
-  console.log(match);
-
+  //filters the players into their respective teams
   const radiantPlayers = match.players.filter((player) => player.isRadiant);
   const direPlayers = match.players.filter((player) => !player.isRadiant);
-
+  //loading and error check for the gql query
   if (loading) return <p>Loading...</p>;
   if (error) {
     console.error("Error fetching comments:", error);
     return <p>Error fetching comments</p>;
   }
   const comments = matchData.comments;
-  console.log(comments);
 
   return (
     <div className="match-container">

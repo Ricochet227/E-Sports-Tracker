@@ -3,7 +3,6 @@ import { dateFormat } from "../../utils/dateFormat";
 
 const CommentList = ({ comment }) => {
   const { _id, text, author, createdAt } = comment;
-  console.log(createdAt);
 
   return (
     <div className="comment-card">
