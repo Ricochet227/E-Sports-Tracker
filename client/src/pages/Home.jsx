@@ -12,6 +12,18 @@ const HomePage = () => {
   const [teams, setTeams] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const [refreshComments, setRefreshComments] = useState(false);
+
+  useEffect(() => {
+    if (refreshComments) {
+      // Fetches comment logic
+      setRefreshComments(false);
+    }
+  }, [refreshComments]);
+
+  const handleNewComment = () => {
+    setRefreshComments(true);
+  };
 
   useEffect(() => {
     getGames()
