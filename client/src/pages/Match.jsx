@@ -78,7 +78,7 @@ const Match = () => {
     return <p>Error fetching comments</p>;
   }
   const comments = matchData.comments;
-
+  console.log(match);
   return (
     <div className="match-container">
       <div className="player-stats-container">

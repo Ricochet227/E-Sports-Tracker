@@ -52,6 +52,8 @@ const HomePage = () => {
     return <Error message={error} />;
   }
 
+  console.log(teams, matches);
+
   return (
     <div className="matches-page">
       <div className="past-matches-container">
@@ -64,9 +66,7 @@ const HomePage = () => {
                   src={teamLogoMap[match.radiant_team_id] || dotaImg}
                   alt={`Radiant Team Logo for Match ${match.match_id}`}
                 />
-                <h2>
-                  {teamNameMap[match.radiant_team_id] || "Name not provided"}
-                </h2>
+                <h2>{teamNameMap[match.radiant_team_id] || "No Name"}</h2>
               </div>
               <div className="vs">VS</div>
               <div className="match-card-img">
@@ -74,9 +74,7 @@ const HomePage = () => {
                   src={teamLogoMap[match.dire_team_id] || dotaImg}
                   alt={`Dire Team Logo for Match ${match.match_id}`}
                 />
-                <h2>
-                  {teamNameMap[match.dire_team_id] || "Name not provided"}
-                </h2>
+                <h2>{teamNameMap[match.dire_team_id] || "No Name"}</h2>
               </div>
             </div>
             <p>

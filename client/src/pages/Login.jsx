@@ -3,9 +3,12 @@ import { useMutation } from "@apollo/client";
 import "./login.css";
 import Auth from "../utils/auth";
 import { LOGIN_USER } from "../utils/mutations";
+import { useNavigate } from "react-router-dom";
+
 const Login = () => {
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error, data }] = useMutation(LOGIN_USER);
+  const navigate = useNavigate();
   //on change updates formState
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -14,6 +17,13 @@ const Login = () => {
       [name]: value,
     });
   };
+  const navigateHome = () => {
+    navigate("/");
+  };
+
+  if (Auth.loggedIn()) {
+    navigateHome;
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
