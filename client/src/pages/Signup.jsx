@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
@@ -17,9 +17,17 @@ const Signup = () => {
   const [addUser, { error, data }] = useMutation(ADD_USER);
   const navigate = useNavigate();
 
-  if (Auth.loggedIn()) {
+  const navigateHome = () => {
     navigate("/");
-  }
+  };
+
+  useEffect(() => {
+    // Check if the user is logged in when the component mounts
+    if (Auth.loggedIn()) {
+      // If logged in, navigate home
+      navigateHome();
+    }
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

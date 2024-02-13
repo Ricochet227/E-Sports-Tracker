@@ -52,8 +52,6 @@ const HomePage = () => {
     return <Error message={error} />;
   }
 
-  console.log(teams, matches);
-
   return (
     <div className="matches-page">
       <div className="past-matches-container">

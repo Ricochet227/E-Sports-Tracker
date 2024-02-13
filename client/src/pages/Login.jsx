@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import "./login.css";
 import Auth from "../utils/auth";
@@ -21,9 +21,13 @@ const Login = () => {
     navigate("/");
   };
 
-  if (Auth.loggedIn()) {
-    navigateHome;
-  }
+  useEffect(() => {
+    // Check if the user is logged in when the component mounts
+    if (Auth.loggedIn()) {
+      // If logged in, navigate home
+      navigateHome();
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
