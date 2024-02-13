@@ -44,6 +44,10 @@
   box-shadow: 5px 5px 5px black;
 }
 
+.match-card-img h2 {
+  text-align: center;
+}
+
 .vs {
   font-size: 24px;
   font-weight: bold;
