@@ -21,6 +21,7 @@ const Match = () => {
     loading,
     error,
     data: matchData,
+    refetch: refetchComments,
   } = useQuery(QUERY_MATCH_COMMENTS, {
     variables: { matchId: matchid },
   });
@@ -156,7 +157,11 @@ const Match = () => {
         ) : (
           <p>There are no comments yet. Be the first!</p>
         )}
-        {Auth.loggedIn() ? <CommentForm /> : <p>Please loggin to Commment</p>}
+        {Auth.loggedIn() ? (
+          <CommentForm onCommentAdded={refetchComments} />
+        ) : (
+          <p>Please loggin to Commment</p>
+        )}
       </div>
     </div>
   );
