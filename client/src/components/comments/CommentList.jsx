@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { dateFormat } from "../../utils/dateFormat";
 
-const CommentList = ({ matchId }) => {
-  const [comments, setComments] = useState([]);
-
-  useEffect(() => {
-    
-  }, [matchId]);
+const CommentList = ({ comment }) => {
+  const { _id, text, author, createdAt } = comment;
 
   return (
-    <div>
-      {comments.map((comment) => (
-        <div key={comment._id}>{comment.text}</div>
-      ))}
+    <div className="comment-card">
+      <p>{text}</p>
+      <p>Author: {author}</p>
+      <p>Posted: {dateFormat(createdAt)}</p>
     </div>
   );
 };

@@ -1,28 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { ADD_USER } from "../utils/mutations";
+import Auth from "../utils/auth";
 
 const Signup = () => {
+  const [notMatched, setMatch] = useState(false);
+  //sets up the formData object
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
+  //sets up the addUser mutation
+  const [addUser, { error, data }] = useMutation(ADD_USER);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add logic for signup here
-    console.log('Form submitted:', formData);
-    setFormData({
-      username: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-    });
+    try {
+      if (formData.password === formData.confirmPassword) {
+        setMatch(false);
+        //adds user with the formData
+        const { data } = await addUser({
+          variables: {
+            username: formData.username,
+            email: formData.email,
+            password: formData.password,
+          },
+        });
+        //logs user in
+        Auth.login(data.addUser.token);
+      } else {
+        setMatch(true);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -79,6 +97,11 @@ const Signup = () => {
 
         <button type="submit">Sign Up</button>
       </form>
+      {notMatched === true ? (
+        <p>Passwords don't match. Please try again</p>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

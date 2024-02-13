@@ -3,28 +3,16 @@ import { getGames, getTeams } from "../utils/API";
 import { useNavigate } from "react-router-dom";
 import dotaImg from "../assets/images/dota2logo.jpeg";
 import Error from "../pages/Error";
-import './../App.css';
-import CommentForm from '../components/comments/CommentForm';
-import CommentList from '../components/comments/CommentList';
+import "./../App.css";
+import { dateFormat } from "../utils/dateFormat";
 
 const HomePage = () => {
   const [matches, setMatches] = useState([]);
   const [teams, setTeams] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const [refreshComments, setRefreshComments] = useState(false);
 
-  useEffect(() => {
-    if (refreshComments) {
-      // Fetches comment logic
-      setRefreshComments(false);
-    }
-  }, [refreshComments]);
-
-  const handleNewComment = () => {
-    setRefreshComments(true);
-  };
-
+  //fetches match data from api
   useEffect(() => {
     getGames()
       .then((data) => setMatches(data))
@@ -33,7 +21,7 @@ const HomePage = () => {
         setError("Failed to load upcoming matches.");
       });
   }, []);
-
+  //fetches team data from api
   useEffect(() => {
     getTeams()
       .then((data) => setTeams(data))
@@ -42,12 +30,17 @@ const HomePage = () => {
         setError("Failed to load teams information.");
       });
   }, []);
-
+  //maps team logos to team_id provided by matches
   const teamLogoMap = teams.reduce((map, team) => {
     map[team.team_id] = team.logo_url;
     return map;
   }, {});
-
+  //maps team names to team_id's provided by the matches
+  const teamNameMap = teams.reduce((map, team) => {
+    map[team.team_id] = team.name;
+    return map;
+  }, {});
+  //on clicked navigates to the match using the match_id
   const handleMatchClick = (match) => {
     navigate(`/match/${match.match_id}`);
   };
@@ -58,30 +51,32 @@ const HomePage = () => {
 
   return (
     <div className="matches-page">
-      {/* You may want to implement upcoming matches similarly */}
-      <div className="upcoming-matches-container">
-        <h2>Upcoming Matches</h2>
-      </div>
       <div className="past-matches-container">
         <h2>Past Matches</h2>
         {matches.map((match) => (
           <div key={match.match_id}>
-            <div
-              className="match-card"
-              onClick={() => handleMatchClick(match)}
-            >
-              <img
-                src={teamLogoMap[match.radiant_team_id] || dotaImg}
-                alt={`Radiant Team Logo for Match ${match.match_id}`}
-              />
+            <div className="match-card" onClick={() => handleMatchClick(match)}>
+              <div className="match-card-img">
+                <img
+                  src={teamLogoMap[match.radiant_team_id] || dotaImg}
+                  alt={`Radiant Team Logo for Match ${match.match_id}`}
+                />
+                <h2>
+                  {teamNameMap[match.radiant_team_id] || "Name not provided"}
+                </h2>
+              </div>
               <div className="vs">VS</div>
-              <img
-                src={teamLogoMap[match.dire_team_id] || dotaImg}
-                alt={`Dire Team Logo for Match ${match.match_id}`}
-              />
+              <div className="match-card-img">
+                <img
+                  src={teamLogoMap[match.dire_team_id] || dotaImg}
+                  alt={`Dire Team Logo for Match ${match.match_id}`}
+                />
+                <h2>
+                  {teamNameMap[match.dire_team_id] || "Name not provided"}
+                </h2>
+              </div>
             </div>
-            <CommentForm matchId={match.match_id} />
-            <CommentList matchId={match.match_id} />
+            <p>{dateFormat(match.start_time)}</p>
           </div>
         ))}
       </div>

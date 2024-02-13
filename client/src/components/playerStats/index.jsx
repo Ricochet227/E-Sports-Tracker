@@ -6,7 +6,7 @@ import noItemImg from "../../assets/images/noItem.png";
 export default function PlayerStats({ player }) {
   const [heroes, setHeroes] = useState([]);
   const [items, setItems] = useState([]);
-
+  //fetches heroes for stats from the api
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -19,7 +19,7 @@ export default function PlayerStats({ player }) {
 
     fetchData();
   }, []);
-
+  //fetches items for the stats through the api
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -32,8 +32,9 @@ export default function PlayerStats({ player }) {
 
     fetchData();
   }, []);
-
+  //sets up a variable for the players hero id
   const foundHero = heroes.find((hero) => hero.id === player.hero_id);
+  //helps with mapping each item slot
   const itemSlots = [
     "item_0",
     "item_1",
@@ -45,7 +46,7 @@ export default function PlayerStats({ player }) {
   ];
 
   let foundItems = {};
-
+  //maps the items object pulled from the api to the player slot using the slot array
   if (typeof items === "object" && Object.keys(items).length > 0) {
     itemSlots.forEach((slot) => {
       const itemId = player[slot];
@@ -57,7 +58,7 @@ export default function PlayerStats({ player }) {
       }
     });
   }
-
+  //sets up a loading state to avoid errors before rendering
   if (
     !foundHero ||
     !foundItems ||
@@ -69,6 +70,7 @@ export default function PlayerStats({ player }) {
       </tr>
     );
   }
+  //removes the useless portion of the hero names to allow the correct data to be passed to the url
   const heroName = foundHero.name.split("npc_dota_hero_").pop();
   return (
     <tr key={player.account_id}>

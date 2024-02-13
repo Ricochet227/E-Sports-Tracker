@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 const bcrypt = require("bcrypt");
+const commentSchema = require("./comment");
 
 const userSchema = new Schema({
   username: {
@@ -13,12 +14,19 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
+    match: [/.+@.+\..+/, "Must use a valid email address"],
   },
   password: {
     type: String,
     required: true,
     minlength: 5,
   },
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Comment",
+    },
+  ],
 });
 
 // set up pre-save middleware to create password
