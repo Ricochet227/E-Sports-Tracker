@@ -8,7 +8,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
-    navigate('/login');
+    navigate("/login");
   };
 
   const handleLogoutClick = () => {
@@ -16,9 +16,9 @@ const Header = () => {
   };
 
   const handleSignupClick = () => {
-    navigate('/signup');
-  }
- 
+    navigate("/signup");
+  };
+
   return (
     <header className="header">
          <img src={esportImg} className="esport" alt="Logo" />

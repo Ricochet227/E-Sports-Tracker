@@ -15,7 +15,10 @@ const HomePage = () => {
   //fetches match data from api
   useEffect(() => {
     getGames()
-      .then((data) => setMatches(data))
+      .then((data) => {
+        const sortedMatches = data.sort((a, b) => b.start_time - a.start_time);
+        setMatches(sortedMatches);
+      })
       .catch((error) => {
         console.error("Error fetching Matches API:", error);
         setError("Failed to load upcoming matches.");
@@ -61,9 +64,7 @@ const HomePage = () => {
                   src={teamLogoMap[match.radiant_team_id] || dotaImg}
                   alt={`Radiant Team Logo for Match ${match.match_id}`}
                 />
-                <h2>
-                  {teamNameMap[match.radiant_team_id] || "Name not provided"}
-                </h2>
+                <h2>{teamNameMap[match.radiant_team_id] || "No Name"}</h2>
               </div>
               <div className="vs">VS</div>
               <div className="match-card-img">
@@ -71,9 +72,7 @@ const HomePage = () => {
                   src={teamLogoMap[match.dire_team_id] || dotaImg}
                   alt={`Dire Team Logo for Match ${match.match_id}`}
                 />
-                <h2>
-                  {teamNameMap[match.dire_team_id] || "Name not provided"}
-                </h2>
+                <h2>{teamNameMap[match.dire_team_id] || "No Name"}</h2>
               </div>
             </div>
             <p>

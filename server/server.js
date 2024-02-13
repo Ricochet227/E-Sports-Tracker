@@ -12,7 +12,6 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: ({ req }) => authMiddleware({ req }), // Pass context directly here
-  logger: console,
 });
 
 // Create a new instance of an Apollo server with the GraphQL schema
