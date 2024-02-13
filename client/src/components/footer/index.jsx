@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import "./footer.css";
+import "./Footer.css";
 
 export default function Foot() {
   const [isSticky, setIsSticky] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
     function handleStickyFooter() {
       const footer = document.querySelector(".footer");
-      const isDocumentHeightLessThanOrEqualToWindow =
-        document.documentElement.scrollHeight <= window.innerHeight;
-      const isScrolledToBottom =
-        window.scrollY + window.innerHeight >=
-        document.documentElement.scrollHeight - footer.offsetHeight;
+      const isContentScrollable =
+        document.body.scrollHeight > window.innerHeight;
 
-      setIsSticky(
-        isDocumentHeightLessThanOrEqualToWindow && isScrolledToBottom
-      );
+      if (!hasScrolled) {
+        // Do not set isSticky on first load
+        setHasScrolled(true);
+        return;
+      }
+
+      setIsSticky(!isContentScrollable);
     }
 
     function handleScroll() {
@@ -38,7 +40,7 @@ export default function Foot() {
       window.removeEventListener("resize", handleStickyFooter);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [location.pathname]);
+  }, [location.pathname, hasScrolled]);
 
   return (
     <footer className={`footer ${isSticky ? "sticky-footer" : ""}`}>

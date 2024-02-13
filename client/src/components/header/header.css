@@ -1,12 +1,17 @@
 body {
-    margin: 0;
-    padding: 0;
-  }
-  
-  .header {
-    background-color: #333;
-    color: #fff;
-    padding: 20px 0;
-    width: 100%;
-    bottom: 0;
-  }
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  background-color: #333;
+  color: skyblue;
+  padding: 20px 0;
+  width: 100%;
+  bottom: 0;
+  align-content: center;
+}
+
+img {
+  width: 50px;
+}

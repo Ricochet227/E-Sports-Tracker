@@ -5,16 +5,16 @@ import App from "./App.jsx";
 import "./index.css";
 
 import Home from "./pages/Home";
-// import Error from "./pages/Error";
+import Error from "./pages/Error";
 import Login from "./pages/Login";
-// import Signup from "./pages/Signup";
+import Signup from "./pages/Signup";
 import Match from "./pages/Match";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    // errorElement: <Error />,
+    errorElement: <Error />,
     children: [
       {
         index: true,
@@ -24,10 +24,10 @@ const router = createBrowserRouter([
         path: "/login",
         element: <Login />,
       },
-      // {
-      //   path: "/signup",
-      //   element: <Signup />,
-      // },
+      {
+        path: "/signup",
+        element: <Signup />,
+      },
       {
         path: "/match/:matchid",
         element: <Match />,
