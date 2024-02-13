@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { ADD_COMMENT } from "../../utils/mutations";
 
-const CommentForm = () => {
+const CommentForm = ({ onCommentAdded }) => {
   const [formState, setFormState] = useState("");
   const [emptyText, setEmptyText] = useState(false);
   const [addComment, { error, data }] = useMutation(ADD_COMMENT);
@@ -35,6 +35,7 @@ const CommentForm = () => {
           },
         });
         setFormState(""); // Clear the text after submitting
+        onCommentAdded();
       } catch (err) {
         console.error(err);
       }

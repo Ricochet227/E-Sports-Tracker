@@ -34,6 +34,10 @@ main {
   width: 400px;
 }
 
+.team-container h2 {
+  text-align: center;
+}
+
 .match-container {
   display: flex;
   justify-content: center;
