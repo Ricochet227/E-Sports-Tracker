@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getSingleGame, getTeams } from "../utils/API";
 import { useParams } from "react-router-dom";
-import {
-  useQuery,
-  ApolloClient,
-  InMemoryCache,
-  createHttpLink,
-} from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import PlayerStats from "../components/playerStats";
 import dotaImg from "../assets/images/dota2logo.jpeg";
 import "../components/playerStats/playerStats.css";

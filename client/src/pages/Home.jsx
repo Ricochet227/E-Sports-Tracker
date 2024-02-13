@@ -76,7 +76,12 @@ const HomePage = () => {
                 </h2>
               </div>
             </div>
-            <p>{dateFormat(match.start_time)}</p>
+            <p>
+              {(() => {
+                const milis = match.start_time * 1000;
+                return dateFormat(milis);
+              })()}
+            </p>
           </div>
         ))}
       </div>
