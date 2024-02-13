@@ -9,12 +9,26 @@ import CommentForm from "../components/comments/CommentForm";
 import CommentList from "../components/comments/CommentList";
 import { QUERY_MATCH_COMMENTS } from "../utils/queries";
 import Auth from "../utils/auth";
+import { useNavigate } from "react-router-dom";
 
 const Match = () => {
   const [match, setMatches] = useState([]);
   const [teams, setTeams] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
   const { matchid } = useParams();
+  const navigate = useNavigate();
+
+  // const navigateLogin = () => {
+  //   navigate("/login");
+  // };
+
+  // useEffect(() => {
+  //   // Check if the user is logged in when the component mounts
+  //   if (!Auth.loggedIn()) {
+  //     // If logged in, navigate home
+  //     navigateLogin();
+  //   }
+  // }, []);
 
   //runs the query on the comments that match the param matchid. this brings in comments that only apply to this match
   const {
