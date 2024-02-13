@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import "./login.css";
 import Auth from "../utils/auth";
 import { LOGIN_USER } from "../utils/mutations";
+import { useNavigate } from "react-router-dom";
+
 const Login = () => {
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error, data }] = useMutation(LOGIN_USER);
+  const navigate = useNavigate();
   //on change updates formState
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -14,6 +17,17 @@ const Login = () => {
       [name]: value,
     });
   };
+  const navigateHome = () => {
+    navigate("/");
+  };
+
+  useEffect(() => {
+    // Check if the user is logged in when the component mounts
+    if (Auth.loggedIn()) {
+      // If logged in, navigate home
+      navigateHome();
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
