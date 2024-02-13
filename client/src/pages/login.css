@@ -28,6 +28,7 @@ input{
     background-color: aliceblue;
     box-shadow: none;
     font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    color: black;
 }
 
 button{

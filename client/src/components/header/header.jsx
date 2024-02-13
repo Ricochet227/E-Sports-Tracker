@@ -6,8 +6,8 @@ import esportImg from "../../assets/images/e-sports-tracker.jpeg";
 const Header = () => {
   return (
     <header className="header">
+      <li><a href="../../pages/login.jsx">login</a></li>
       <img src={esportImg} alt="Logo" />
-      <h1>e-sports tracker</h1>
     </header>
   );
 };

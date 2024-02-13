@@ -4,14 +4,13 @@ body {
 }
 
 .header {
-  background-color: #333;
-  color: skyblue;
-  padding: 20px 0;
-  width: 100%;
-  bottom: 0;
-  align-content: center;
+  background-color: black;
+  color: aliceblue;
 }
 
 img {
-  width: 50px;
+  width: 25%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto; 
 }
