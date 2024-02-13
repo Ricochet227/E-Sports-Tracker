@@ -21,7 +21,8 @@ const Header = () => {
 
   return (
     <header className="header">
-      <ul>
+         <img src={esportImg} className="esport" alt="Logo" />
+      <ul className="list">
         {Auth.loggedIn() ? (
           <li>
             <a onClick={handleLogoutClick}>Signout</a>
@@ -37,7 +38,7 @@ const Header = () => {
           </>
         )}
       </ul>
-      <img src={esportImg} alt="Logo" />
+
     </header>
   );
 };
