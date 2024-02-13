@@ -15,7 +15,10 @@ const HomePage = () => {
   //fetches match data from api
   useEffect(() => {
     getGames()
-      .then((data) => setMatches(data))
+      .then((data) => {
+        const sortedMatches = data.sort((a, b) => b.start_time - a.start_time);
+        setMatches(sortedMatches);
+      })
       .catch((error) => {
         console.error("Error fetching Matches API:", error);
         setError("Failed to load upcoming matches.");
