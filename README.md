@@ -1,5 +1,5 @@
 ## E-Sports-Tracker
-
+Visit our Deployed link https://e-sports-tracker-b9n7.onrender.com/
 ![Capture](https://github.com/Ricochet227/E-Sports-Tracker/assets/120769113/9e9d96ba-67ae-4e14-a4bb-5dc5977fa7ba)
 
 Generates a leaderboard for professional Dota 2 games. Displays stats like team wins, kill and gold generated.
