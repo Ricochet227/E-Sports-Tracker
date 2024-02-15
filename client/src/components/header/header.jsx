@@ -19,10 +19,16 @@ const Header = () => {
     navigate("/signup");
   };
 
+  const handleHomeClick = () => {
+    navigate("/");
+  };
   return (
     <header className="header">
-         <img src={esportImg} className="esport" alt="Logo" />
+      <img src={esportImg} className="esport" alt="Logo" />
       <ul className="list">
+        <li>
+          <a onClick={handleHomeClick}>Home</a>
+        </li>
         {Auth.loggedIn() ? (
           <li>
             <a onClick={handleLogoutClick}>Signout</a>
@@ -38,7 +44,6 @@ const Header = () => {
           </>
         )}
       </ul>
-
     </header>
   );
 };
