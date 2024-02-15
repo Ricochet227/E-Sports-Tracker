@@ -8,20 +8,25 @@ body {
   background-color: black;
   flex-wrap: nowrap;
   flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .esport {
   width: 20%;
   display: block;
   margin-left: auto;
-  margin-right: auto; 
+  margin-right: auto;
 }
 
 .list {
   list-style-type: none;
-  cursor: pointer; 
+  cursor: pointer;
   display: flex;
   flex-direction: column;
-  margin: auto;
-  transform: translate(47%, -50%);
+  margin: 0;
+  padding: 0;
+  /* transform: translate(47%, -50%); */
+  text-align: center;
+  width: 100%;
 }
