@@ -99,9 +99,32 @@ tr {
 }
 
 .match-comments-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   text-align: center;
+  width: 100%;
+  max-width: 1000px; /* Adjust the max-width as needed */
+  margin-top: 20px;
 }
 
+.match-comments-container form {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  max-width: 600px;
+  align-items: center;
+}
+
+.match-comments-container form button {
+  max-width: 200px;
+  margin-top: 20px;
+}
+
+.match-comments-container form textarea {
+  width: 400px;
+  height: 100px;
+}
 @media screen and (max-width: 500px) {
   .player-stats-container {
     max-width: 95%;
