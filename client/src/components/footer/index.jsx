@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import "./Footer.css";
+import "./footer.css";
 
 export default function Foot() {
   const [isSticky, setIsSticky] = useState(false);
